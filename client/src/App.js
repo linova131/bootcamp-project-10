@@ -1,23 +1,49 @@
-import logo from './logo.svg';
 import './App.css';
+import React, {useState, useEffect} from 'react';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
+import axios from 'axios';
+
+//Importing components
+import Header from './components/Header';
+import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
+import CreateCourse from './components/CreateCourse';
+import UpdateCourse from './components/UpdateCourse';
+import UserSignIn from './components/UserSignIn';
+import UserSignUp from './components/UserSignUp';
+import UserSignOut from './components/UserSignOut';
+
 
 function App() {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    axios('http://localhost:5000/api/courses')
+      .then(response => setCourses(response.data))
+      .catch(error => console.log('Something went wrong with the courses fetch'))
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Header />
+        
+        <Switch>
+          <Route exact path="/" render={() => <Courses courses={courses} />} />
+          <Route path="/courses/create" render={() => <CreateCourse />} />
+          <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
+          <Route exact path="/courses/:id" render={() => <CourseDetail courses={courses} />} />
+          <Route path="/signin" render={() => <UserSignIn />} />
+          <Route path="/signup" render={() => <UserSignUp />} />
+          <Route path="/signout" render={() => <UserSignOut />} />
+        </Switch>
+      </BrowserRouter>
+
+
     </div>
   );
 }
