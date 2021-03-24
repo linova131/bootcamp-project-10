@@ -2,16 +2,21 @@ import React from 'react';
 
 function CreateCourse() {
 
+  function handleCancel(event) {
+    event.preventDefault();
+    window.location.href = "/"
+  }
+
   return (
     <div className="wrap">
       <h2>Create Course</h2>
-      <div className="validation--errors">
+      {/* <div className="validation--errors">
         <h3>Validation Errors</h3>
         <ul>
           <li>Please provide a value for "title"</li>
           <li>Please provide a value for "description"</li>
         </ul>
-      </div>
+      </div> */}
       <form>
         <div className="main--flex">
             <div>
@@ -32,7 +37,7 @@ function CreateCourse() {
               <textarea id="materialsNeeded" name="materialsNeeded"></textarea>
             </div>
           </div>
-          <button class="button" type="submit">Update Course</button><button class="button button-secondary" onclick="event.preventDefault(); location.href='index.html';">Cancel</button>
+          <button class="button" type="submit">Update Course</button><button class="button button-secondary" onClick={handleCancel}>Cancel</button>
       </form>    
     </div>    
   )

@@ -7,6 +7,7 @@ function CourseDetail(props) {
   const id = params.id;
   let materials = [];
   let author = '';
+  let time = '';
 
   const [course, setCourse] = useState([])
   useEffect(() => {
@@ -17,10 +18,8 @@ function CourseDetail(props) {
 
   if(course.courseOwner) {
     author = course.courseOwner.firstName + ' ' + course.courseOwner.lastName;
-    console.log(author)
   }
  
-
   if(course.materialsNeeded) {
     materials = course.materialsNeeded.split('*');
     materials.shift();
@@ -29,30 +28,42 @@ function CourseDetail(props) {
       );
   }
 
-  //TODO, like materialsNeeded, add estimatedTime if statement
+  if(course.estimatedTime) {
+    time = course.estimatedTime;
+  }
 
   return (
-    <div className="wrap">
-      <h2>Course Detail</h2>
-      <form>
-        <div className="main--flex">
-          <div>
-            <h3 className="course--detail--title">Course</h3>
-            <h4 className="course--name">{course.title}</h4>
-            <p>By {author}</p>
-            <p>{course.description}</p>
-          </div>
-          <div>
-            <h3 className="course--detail--title">Estimated Time</h3>
-            <p>{course.estimatedTime}</p>
-            <h3 className="course--detail--title">Materials Needed</h3>
-            <ul className="course--detail--list">
-              {materials}
-            </ul>
-          </div>
+    <main>
+      <div className="actions--bar">
+        <div className="wrap">
+            <a className="button" href={`/courses/${course.id}/update`}>Update Course</a>
+            <a className="button" href="#">Delete Course</a>
+            <a className="button button-secondary" href="/">Return to List</a>
         </div>
-      </form>
-    </div>
+      </div>
+
+      <div className="wrap">
+        <h2>Course Detail</h2>
+        <form>
+          <div className="main--flex">
+            <div>
+              <h3 className="course--detail--title">Course</h3>
+              <h4 className="course--name">{course.title}</h4>
+              <p>By {author}</p>
+              <p>{course.description}</p>
+            </div>
+            <div>
+              <h3 className="course--detail--title">Estimated Time</h3>
+              <p>{time}</p>
+              <h3 className="course--detail--title">Materials Needed</h3>
+              <ul className="course--detail--list">
+                {materials}
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
   )
 
 }
