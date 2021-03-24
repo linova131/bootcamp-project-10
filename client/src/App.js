@@ -23,11 +23,17 @@ const UserSignUpWithContext = withContext(UserSignUp);
 
 
 function App() {
-  const [courses, setCourses] = useState([]);
+  let [courses, setCourses] = useState([]);
 
   useEffect(() => {
     axios('http://localhost:5000/api/courses')
       .then(response => setCourses(response.data))
+      .then(courses = courses.forEach((course) =>  {
+        course.key = course.id;
+        console.log(course.key);
+      })
+        console.log(courses)
+      )
       .catch(error => console.log('Something went wrong with the courses fetch'))
   }, [])
 
@@ -40,7 +46,7 @@ function App() {
           <Route exact path="/" render={() => <Courses courses={courses} />} />
           <Route path="/courses/create" render={() => <CreateCourse />} />
           <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
-          <Route exact path="/courses/:id" render={() => <CourseDetail courses={courses} />} />
+          <Route exact path="/courses/:id" render={() => <CourseDetail />} />
           <Route path="/signin" render={() => <UserSignIn />} />
           <Route path="/signup" render={() => <UserSignUpWithContext />} />
           <Route path="/signout" render={() => <UserSignOut />} />

@@ -7,18 +7,11 @@ function UserSignUp(props) {
     window.location.href = "/"
   }
 
-  // function submit() {
-  //   const {context} = this.props;
+  function submit() {
+    const {context} = this.props;
+  }
 
-  //   const {
-  //     firstName,
-  //     lastName,
-  //     username,
-  //     password,
-  //   } =
-  // }
-
-
+    
   return (
     <div className="form--centered">
       <h2>Sign Up</h2>

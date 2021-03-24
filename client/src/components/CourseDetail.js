@@ -8,14 +8,17 @@ function CourseDetail(props) {
   let materials = [];
   let author = '';
   let time = '';
+  console.log('blank variables only at this point')
 
   const [course, setCourse] = useState([])
   useEffect(() => {
     axios(`http://localhost:5000/api/courses/${id}`)
     .then(response => setCourse(response.data))
+    .then(console.log('useEffect fired'))
     .catch(error => console.log('Something went wrong with the courses fetch'))
   }, [id]);
 
+  console.log('refiguring variables rn')
   if(course.courseOwner) {
     author = course.courseOwner.firstName + ' ' + course.courseOwner.lastName;
   }
