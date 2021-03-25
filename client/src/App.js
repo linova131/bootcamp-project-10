@@ -24,7 +24,7 @@ const UserSignInWithContext = withContext(UserSignIn);
 
 
 function App() {
-  let [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   useEffect(() => {
     axios('http://localhost:5000/api/courses')
@@ -41,8 +41,13 @@ function App() {
           <Route exact path="/" render={() => <Courses courses={courses} />} />
           <Route path="/courses/create" render={() => <CreateCourse />} />
           <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
+<<<<<<< HEAD
           <Route exact path="/courses/:id" render={() => <CourseDetail />} />
           <Route path="/signin" render={() => <UserSignInWithContext />} />
+=======
+          <Route exact path="/courses/:id" render={() => <CourseDetail courses={courses} />} />
+          <Route path="/signin" render={() => <UserSignIn />} />
+>>>>>>> parent of 83e90a9... Messing with the Key Value
           <Route path="/signup" render={() => <UserSignUpWithContext />} />
           <Route path="/signout" render={() => <UserSignOut />} />
         </Switch>
