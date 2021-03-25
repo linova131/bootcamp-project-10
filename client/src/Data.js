@@ -50,4 +50,8 @@ export default class Data {
     }
   }
 
+  testFunction() {
+    console.log('testFunction fired')
+  }
+
 }

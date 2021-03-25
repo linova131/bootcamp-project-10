@@ -14,6 +14,7 @@ function UserSignUp(props) {
   const [emailAddress, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmedPassword, setConfirmedPassword] = useState('');
+  const [errors, setErrors] = useState([]);
 
   //Helper functions
 
@@ -36,6 +37,20 @@ function UserSignUp(props) {
       password,
     }
     console.log(user);
+    console.log(props)
+    // context.data.createUser(user)
+    //   .then(errors => {
+    //     if(errors.length) {
+    //       setErrors(errors);
+    //     } else {
+    //       //sign-in route goes here
+    //       console.log('congrats you created a user!');
+    //     }
+    //   })
+    //   .catch(err=> {
+    //     console.log(err);
+    //     //TODO add redirect to either index or error page
+    //   })
   }
 
   //handleChange helps track the changes to the input boxes
@@ -60,7 +75,7 @@ function UserSignUp(props) {
         <input id="password" name="password" type="password" ref={passwordInput} onChange={handleChange}/>
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword" name="confirmPassword" type="password" ref={confirmedPasswordInput} onChange={handleChange} />
-        <button class="button" type="submit" onClick={handleSubmit}>Sign Up</button><button class="button button-secondary" onclick={handleCancel}>Cancel</button>
+        <button class="button" type="submit">Sign Up</button><button class="button button-secondary" onclick={handleCancel}>Cancel</button>
       </form>
     </div>
   )
