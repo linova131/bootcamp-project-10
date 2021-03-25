@@ -12,6 +12,9 @@ export class Provider extends Component {
   render() {
     const value = {
       data: this.data,
+      actions: {
+        signIn: this.signIn
+      }
     }
     return (
       <Context.Provider value={value}>
@@ -19,6 +22,12 @@ export class Provider extends Component {
       </Context.Provider>
     )
   }
+
+  signIn = async(username, password) => {
+    const user = await this.data.getUser(username, password);
+    return user;
+  }
+
 }
 
 //Wraps a provided component in Context.Consumer component. Subscribes component to all actions/context changes

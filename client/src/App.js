@@ -20,6 +20,7 @@ import withContext from './Context';
 
 //Contextualized components
 const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
 
 
 function App() {
@@ -28,12 +29,6 @@ function App() {
   useEffect(() => {
     axios('http://localhost:5000/api/courses')
       .then(response => setCourses(response.data))
-      .then(courses = courses.forEach((course) =>  {
-        course.key = course.id;
-        console.log(course.key);
-      })
-        console.log(courses)
-      )
       .catch(error => console.log('Something went wrong with the courses fetch'))
   }, [])
 
@@ -47,7 +42,7 @@ function App() {
           <Route path="/courses/create" render={() => <CreateCourse />} />
           <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
           <Route exact path="/courses/:id" render={() => <CourseDetail />} />
-          <Route path="/signin" render={() => <UserSignIn />} />
+          <Route path="/signin" render={() => <UserSignInWithContext />} />
           <Route path="/signup" render={() => <UserSignUpWithContext />} />
           <Route path="/signout" render={() => <UserSignOut />} />
         </Switch>
