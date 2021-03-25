@@ -9,11 +9,6 @@ export class Provider extends Component {
     this.data = new Data();
   }
 
-  testFunction() {
-    console.log('test complete');
-  }
-
-
   render() {
     const value = {
       data: this.data,

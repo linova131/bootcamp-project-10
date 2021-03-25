@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useContext} from 'react';
 
 function UserSignUp(props) {
 
@@ -29,7 +29,7 @@ function UserSignUp(props) {
   //TODO: figure out how to make it work??
   function handleSubmit(event) {
     event.preventDefault();
-    const {context} = props;
+    const { context } = props
     console.log('submit fired')
     const user = {
       name,
@@ -37,7 +37,7 @@ function UserSignUp(props) {
       password,
     }
     console.log(user);
-    console.log(props)
+    // context.data.testFunction();
     // context.data.createUser(user)
     //   .then(errors => {
     //     if(errors.length) {

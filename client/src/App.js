@@ -17,6 +17,7 @@ import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 import withContext from './Context';
+// import Context from './Context';
 
 //Contextualized components
 const UserSignUpWithContext = withContext(UserSignUp);
