@@ -59,21 +59,21 @@ export default class UserSignUp extends Component {
     };
     console.log('submit fired')
 
-    // context.data.createUser(user)
-    //   .then(errors => {
-    //     if (errors.length) {
-    //       this.setState({ errors });
-    //     } else {
-    //       context.actions.signIn(emailAddress, password)
-    //         .then(() => {
-    //           this.props.history.push('/authenticated');
-    //         });
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //     this.props.history.push('/error');
-    //   })
+    context.data.createUser(user)
+      .then(errors => {
+        if (errors.length) {
+          this.setState({ errors });
+        } else {
+          context.actions.signIn(emailAddress, password)
+            .then(() => {
+              this.props.history.push('/authenticated');
+            });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.props.history.push('/error');
+      })
   }
 
   cancel = () => {
