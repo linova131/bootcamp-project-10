@@ -37,7 +37,7 @@ function CourseDetail(props) {
       <div className="actions--bar">
         <div className="wrap">
             <a className="button" href={`/courses/${course.id}/update`}>Update Course</a>
-            <a className="button" href="#">Delete Course</a>
+            <a className="button" href="/">Delete Course</a>
             <a className="button button-secondary" href="/">Return to List</a>
         </div>
       </div>
