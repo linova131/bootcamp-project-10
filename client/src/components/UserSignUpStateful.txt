@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import Form from './Form';
 
 export default class UserSignUp extends Component {
   state = {
@@ -58,7 +60,7 @@ export default class UserSignUp extends Component {
       password
     };
     console.log('submit fired')
-
+    context.data.testFunction();
     // context.data.createUser(user)
     //   .then(errors => {
     //     if (errors.length) {
