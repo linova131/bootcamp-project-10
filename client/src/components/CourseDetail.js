@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
-//TODO move if statements into the .then of the axios call
 
 function CourseDetail(props) {
   const params = useParams();
