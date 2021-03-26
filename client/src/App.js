@@ -21,6 +21,7 @@ import withContext from './Context';
 
 //Contextualized components
 const UserSignUpWithContext = withContext(UserSignUp);
+const UserSignInWithContext = withContext(UserSignIn);
 
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
           <Route path="/courses/create" render={() => <CreateCourse />} />
           <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
           <Route exact path="/courses/:id" render={() => <CourseDetail courses={courses} />} />
-          <Route path="/signin" render={() => <UserSignIn />} />
+          <Route path="/signin" render={() => <UserSignInWithContext />} />
           <Route path="/signup" render={() => <UserSignUpWithContext />} />
           <Route path="/signout" render={() => <UserSignOut />} />
         </Switch>
