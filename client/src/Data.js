@@ -50,6 +50,10 @@ export default class Data {
     }
   }
 
+  testFunction() {
+    console.log('test fired')
+  }
+
   async updateCourse(id, emailAddress, password) {
     const response = await this.api('/courses/'+id, 'PUT', null, true, {emailAddress, password});
     if (response.status === 200) {
