@@ -1,91 +1,83 @@
-import React, {useState, useRef} from 'react';
+import React, {Component} from 'react';
+import Errors from './Errors';
 
-function UserSignIn(props) {
-
-
-  //useRef is a hook that allow me to use ref's outside of class component
-  //Listing the refs for the form elements
-  const firstNameInput = useRef(null);
-  const lastNameInput = useRef(null);
-  const emailAddressInput = useRef(null);
-  const passwordInput = useRef(null);
-
-  //Adding state to the input values
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [emailAddress, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
-
-  //Helper functions
-
-  //handleCancel adds functionality to the cancel button
-  function handleCancel(event) {
-    event.preventDefault();
-    window.location.href = "/"
+export default class UserSignIn extends Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    password: '',
+    errors: [],
   }
 
-  //handleSubmit adds functinoality to the submit button
-  //Should call the createUser function from the Data.js file
-  //TODO: figure out how to make it work??
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log('submit fired')
-    const { context } = props
-    console.log('submit fired')
+  //TODO figure out how to only sometimes show the Errors
+
+  render() {
+    const {
+      errors,
+    } = this.state;
+
+    return (
+       <div className="form--centered">
+      <h2>Sign In</h2>
+      <Errors errors={errors}/>
+      {/* TODO Not sure if there need to be validation errors heree */}
+      <form onSubmit={this.submit}>
+        <label for="firstName">First Name</label>
+        <input id="firstName" name="firstName" type="text" onChange={this.change} />
+        <label for="lastName">Last Name</label>
+        <input id="lastName" name="lastName" type="text" onChange={this.change} />
+        <label for="emailAddress">Email Address</label>
+        <input id="emailAddress" name="emailAddress" type="email" onChange={this.change} />
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" onChange={this.change}/>
+        <button class="button" type="submit">Sign In</button><button class="button button-secondary" onClick={this.cancel}>Cancel</button>
+      </form>
+    </div>
+    );
+  }
+
+  change = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState(() => {
+      return {
+        [name]: value
+      };
+    });
+  }
+
+  submit = (e) => {
+    e.preventDefault();
+    const { context } = this.props;
+    const { firstName, lastName, emailAddress, password } = this.state;
+
     const user = {
       firstName,
       lastName,
       emailAddress,
-      password,
-    }
-    console.log(user);
-    context.data.testFunction();
-    context.actions.signIn(emailAddress, password)
+      password
+    };
+
+    context.actions.signIn(emailAddress,password)
       .then(user => {
-        if (user === null) {
-          setErrors('Sorry no such user exists')
-          console.log(errors);
+        if(user === null) {
+          this.setState(()=> {
+            return {errors: ['Sign in was unsuccessful']};
+          })
         } else {
-          console.log('The sign in worked!')
-          //TODO: add a redirect here
-          // this.props.history.push(from);
+          this.props.history.push('/');
+          console.log('User has been signed in');
         }
       })
-      .catch( err => {
+      .catch(err => {
         console.log(err);
-        // this.props.history.push('./error');
       })
   }
 
-  //handleChange helps track the changes to the input boxes
-  function handleChange() {
-    setFirstName(firstNameInput.current.value);
-    setLastName(lastNameInput.current.value);
-    setEmail(emailAddressInput.current.value);
-    setPassword(passwordInput.current.value);
+  cancel = (e) => {
+    e.preventDefault();
+    this.props.history.push('/');
   }
-
-  return (
-    <div className="form--centered">
-      <h2>Sign In</h2>
-
-      <form onSubmit={handleSubmit} errors={errors}>
-        <label for="firstName">First Name</label>
-        <input id="firstName" name="firstName" type="text" ref={firstNameInput} onChange={handleChange} />
-        <label for="lastName">Last Name</label>
-        <input id="lastName" name="lastName" type="text" ref={lastNameInput} onChange={handleChange} />
-        <label for="emailAddress">Email Address</label>
-        <input id="emailAddress" name="emailAddress" type="email" ref={emailAddressInput} onChange={handleChange} />
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" ref={passwordInput} onChange={handleChange}/>
-        <button class="button" type="submit">Sign In</button><button class="button button-secondary" onclick={handleCancel}>Cancel</button>
-      </form>
-      <p>Don't have a user account? Click here to sign up</p>
-    
-    </div>
-  )
-
 }
-
-export default UserSignIn;

@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {
   BrowserRouter,
   Route,
-  Switch
+  Switch,
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -18,11 +18,11 @@ import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
 import withContext from './Context';
-// import Context from './Context';
 
 //Contextualized components
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const HeaderWithContext = withContext(Header);
 
 
 function App() {
@@ -37,15 +37,15 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header />
+        <HeaderWithContext />
         
         <Switch>
           <Route exact path="/" render={() => <Courses courses={courses} />} />
           <Route path="/courses/create" render={() => <CreateCourse />} />
           <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
           <Route exact path="/courses/:id" render={() => <CourseDetail courses={courses} />} />
-          <Route path="/signin" render={() => <UserSignInWithContext />} />
-          <Route path="/signup" render={() => <UserSignUpWithContext />} />
+          <Route path="/signin" component={UserSignInWithContext} />
+          <Route path="/signup" component={UserSignUpWithContext} />
           <Route path="/signout" render={() => <UserSignOut />} />
           <Route component={NotFound} />
         </Switch>

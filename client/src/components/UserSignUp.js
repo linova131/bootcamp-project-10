@@ -11,14 +11,9 @@ export default class UserSignUp extends Component {
   }
 
   //TODO figure out how to only sometimes show the Errors
-  //TODO figure out why cancel is submitting?
 
   render() {
     const {
-      // firstName,
-      // lastName,
-      // emailAddress,
-      // password,
       errors,
     } = this.state;
 
@@ -38,7 +33,7 @@ export default class UserSignUp extends Component {
         <input id="password" name="password" type="password" onChange={this.change}/>
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword" name="confirmPassword" type="password" onChange={this.change} />
-        <button class="button" type="submit">Sign Up</button><button class="button button-secondary" onclick={this.cancel}>Cancel</button>
+        <button class="button" type="submit">Sign Up</button><button class="button button-secondary" onClick={this.cancel}>Cancel</button>
       </form>
     </div>
     );
@@ -75,7 +70,7 @@ export default class UserSignUp extends Component {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               console.log('This user has been created and is signed in!')
-              // this.props.history.push('/authenticated');
+              window.location.href='/';
             });
         }
       })
@@ -87,7 +82,7 @@ export default class UserSignUp extends Component {
 
   cancel = (e) => {
     e.preventDefault();
-    window.location.href('/');
+    this.props.history.push('/');
   }
 }
 
