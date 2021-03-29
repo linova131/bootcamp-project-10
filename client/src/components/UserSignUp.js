@@ -1,91 +1,93 @@
-import React, {useRef, useState} from 'react';
+import React, { Component } from 'react';
+import Errors from './Errors';
 
-function UserSignUp(props) {
-
-  //useRef is a hook that allow me to use ref's outside of class component
-  //Listing the refs for the form elements
-  const firstNameInput = useRef(null);
-  const lastNameInput = useRef(null);
-  const emailAddressInput = useRef(null);
-  const passwordInput = useRef(null);
-  const confirmedPasswordInput = useRef(null);
-
-  //Adding state to the input values
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [emailAddress, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmedPassword, setConfirmedPassword] = useState('');
-  const [errors, setErrors] = useState([]);
-
-  //Helper functions
-
-  //handleCancel adds functionality to the cancel button
-  function handleCancel(event) {
-    event.preventDefault();
-    window.location.href = "/"
+export default class UserSignUp extends Component {
+  state = {
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    password: '',
+    errors: [],
   }
 
-  //handleSubmit adds functinoality to the submit button
-  //Should call the createUser function from the Data.js file
-  //TODO: figure out how to make it work??
-  function handleSubmit(event) {
-    event.preventDefault();
-    const { context } = props
-    console.log('submit fired')
+  //TODO figure out how to only sometimes show the Errors
+  //TODO figure out why cancel is submitting?
+
+  render() {
+    const {
+      // firstName,
+      // lastName,
+      // emailAddress,
+      // password,
+      errors,
+    } = this.state;
+
+    return (
+       <div className="form--centered">
+      <h2>Sign Up</h2>
+      <Errors errors={errors}/>
+      {/* TODO Not sure if there need to be validation errors heree */}
+      <form onSubmit={this.submit}>
+        <label for="firstName">First Name</label>
+        <input id="firstName" name="firstName" type="text" onChange={this.change} />
+        <label for="lastName">Last Name</label>
+        <input id="lastName" name="lastName" type="text" onChange={this.change} />
+        <label for="emailAddress">Email Address</label>
+        <input id="emailAddress" name="emailAddress" type="email" onChange={this.change} />
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" onChange={this.change}/>
+        <label for="confirmPassword">Confirm Password</label>
+        <input id="confirmPassword" name="confirmPassword" type="password" onChange={this.change} />
+        <button class="button" type="submit">Sign Up</button><button class="button button-secondary" onclick={this.cancel}>Cancel</button>
+      </form>
+    </div>
+    );
+  }
+
+  change = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    this.setState(() => {
+      return {
+        [name]: value
+      };
+    });
+  }
+
+  submit = (e) => {
+    e.preventDefault();
+    const { context } = this.props;
+    const { firstName, lastName, emailAddress, password } = this.state;
+
     const user = {
       firstName,
       lastName,
       emailAddress,
-      password,
-    }
-    console.log(user);
-    context.data.testFunction();
+      password
+    };
+
     context.data.createUser(user)
       .then(errors => {
-        if(errors.length) {
-          setErrors(errors);
+        if (errors.length) {
+          this.setState({ errors });
         } else {
-          //sign-in route goes here
-          console.log('congrats you created a user!');
+          context.actions.signIn(emailAddress, password)
+            .then(() => {
+              console.log('This user has been created and is signed in!')
+              // this.props.history.push('/authenticated');
+            });
         }
       })
-      .catch(err=> {
+      .catch(err => {
         console.log(err);
-        //TODO add redirect to either index or error page
+        this.props.history.push('/error');
       })
   }
 
-  //handleChange helps track the changes to the input boxes
-  function handleChange() {
-    setFirstName(firstNameInput.current.value);
-    setLastName(lastNameInput.current.value);
-    setEmail(emailAddressInput.current.value);
-    setPassword(passwordInput.current.value);
-    setConfirmedPassword(confirmedPasswordInput.current.value);
+  cancel = (e) => {
+    e.preventDefault();
+    window.location.href('/');
   }
-
-   
-  return (
-    <div className="form--centered">
-      <h2>Sign Up</h2>
-      {/* TODO Not sure if there need to be validation errors heree */}
-      <form onSubmit={handleSubmit}>
-        <label for="firstName">First Name</label>
-        <input id="firstName" name="firstName" type="text" ref={firstNameInput} onChange={handleChange} />
-        <label for="lastName">Last Name</label>
-        <input id="lastName" name="lastName" type="text" ref={lastNameInput} onChange={handleChange} />
-        <label for="emailAddress">Email Address</label>
-        <input id="emailAddress" name="emailAddress" type="email" ref={emailAddressInput} onChange={handleChange} />
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" ref={passwordInput} onChange={handleChange}/>
-        <label for="confirmPassword">Confirm Password</label>
-        <input id="confirmPassword" name="confirmPassword" type="password" ref={confirmedPasswordInput} onChange={handleChange} />
-        <button class="button" type="submit">Sign Up</button><button class="button button-secondary" onclick={handleCancel}>Cancel</button>
-      </form>
-    </div>
-  )
-
 }
 
-export default UserSignUp;

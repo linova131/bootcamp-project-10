@@ -30,6 +30,7 @@ function UserSignIn(props) {
   //TODO: figure out how to make it work??
   function handleSubmit(event) {
     event.preventDefault();
+    console.log('submit fired')
     const { context } = props
     console.log('submit fired')
     const user = {
@@ -40,6 +41,21 @@ function UserSignIn(props) {
     }
     console.log(user);
     context.data.testFunction();
+    context.actions.signIn(emailAddress, password)
+      .then(user => {
+        if (user === null) {
+          setErrors('Sorry no such user exists')
+          console.log(errors);
+        } else {
+          console.log('The sign in worked!')
+          //TODO: add a redirect here
+          // this.props.history.push(from);
+        }
+      })
+      .catch( err => {
+        console.log(err);
+        // this.props.history.push('./error');
+      })
   }
 
   //handleChange helps track the changes to the input boxes
@@ -54,8 +70,7 @@ function UserSignIn(props) {
     <div className="form--centered">
       <h2>Sign In</h2>
 
-      <form>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} errors={errors}>
         <label for="firstName">First Name</label>
         <input id="firstName" name="firstName" type="text" ref={firstNameInput} onChange={handleChange} />
         <label for="lastName">Last Name</label>
@@ -65,7 +80,6 @@ function UserSignIn(props) {
         <label for="password">Password</label>
         <input id="password" name="password" type="password" ref={passwordInput} onChange={handleChange}/>
         <button class="button" type="submit">Sign In</button><button class="button button-secondary" onclick={handleCancel}>Cancel</button>
-      </form>
       </form>
       <p>Don't have a user account? Click here to sign up</p>
     

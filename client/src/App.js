@@ -9,6 +9,7 @@ import axios from 'axios';
 
 //Importing components
 import Header from './components/Header';
+import NotFound from './components/NotFound';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
@@ -46,6 +47,7 @@ function App() {
           <Route path="/signin" render={() => <UserSignInWithContext />} />
           <Route path="/signup" render={() => <UserSignUpWithContext />} />
           <Route path="/signout" render={() => <UserSignOut />} />
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
 

@@ -3,6 +3,11 @@ import Data from './Data';
 const Context = React.createContext();
 
 export class Provider extends Component {
+
+  state = {
+    authenticatedUser: null
+  };
+
   constructor() {
     super();
     //Allows us to access the helper class functions from Data.js
@@ -13,10 +18,26 @@ export class Provider extends Component {
     console.log('test complete');
   }
 
+  signIn = async (emailAddress, password) => {
+    const user = await this.data.getUser(emailAddress, password);
+    if (user !== null) {
+      this.setState(() => {
+        return {
+          authenticatedUser: user,
+        };
+      });
+      //Set cookie
+      // Cookies.set('authenticatedUser', JSON.stringify(user), {expires: 1});
+    }
+    return user;
+  }
 
   render() {
     const value = {
       data: this.data,
+      actions: {
+        signIn: this.signIn,
+      }
     }
     return (
       <Context.Provider value={value}>
