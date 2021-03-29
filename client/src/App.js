@@ -9,6 +9,7 @@ import axios from 'axios';
 
 //Importing components
 import Header from './components/Header';
+import PrivateRoute from './PrivateRoute';
 import NotFound from './components/NotFound';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
@@ -17,12 +18,15 @@ import UpdateCourse from './components/UpdateCourse';
 import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
+import Authenticated from './components/Authenticated';
 import withContext from './Context';
 
 //Contextualized components
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
+const UserSignOutWithContext = withContext(UserSignOut);
 const HeaderWithContext = withContext(Header);
+const AuthWithContext = withContext(Authenticated);
 
 
 function App() {
@@ -41,12 +45,13 @@ function App() {
         
         <Switch>
           <Route exact path="/" render={() => <Courses courses={courses} />} />
-          <Route path="/courses/create" render={() => <CreateCourse />} />
-          <Route exact path="/courses/:id/update" render={() => <UpdateCourse />} />
-          <Route exact path="/courses/:id" render={() => <CourseDetail courses={courses} />} />
+          <Route path="/courses/create" component={CreateCourse} />
+          <Route exact path="/courses/:id/update" component={UpdateCourse} />
+          <Route exact path="/courses/:id" component={CourseDetail} />
           <Route path="/signin" component={UserSignInWithContext} />
           <Route path="/signup" component={UserSignUpWithContext} />
-          <Route path="/signout" render={() => <UserSignOut />} />
+          <Route path="/signout" component={UserSignOutWithContext} />
+          <PrivateRoute path="/authenticated" component={AuthWithContext} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

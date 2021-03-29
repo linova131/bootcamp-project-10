@@ -15,15 +15,15 @@ export default class Data {
 
     //Check if auth is required
     if (requiresAuth) {
-      const encodedCredentials = btoa(`${credentials.username}:${credentials.password}`);
+      const encodedCredentials = btoa(`${credentials.emailAddress}:${credentials.password}`);
       options.headers['Authorization'] = `Basic ${encodedCredentials}`;
     }
 
     return fetch(url, options);
   }
 
-  async getUser(username, password) {
-    const response = await this.api(`/users`, 'GET', null, true, {username, password});
+  async getUser(emailAddress, password) {
+    const response = await this.api(`/users`, 'GET', null, true, {emailAddress, password});
     if (response.status === 200) {
       return response.json().then(data => data);
     }
@@ -50,8 +50,19 @@ export default class Data {
     }
   }
 
-  testFunction() {
-    console.log('testFunction fired')
+  async updateCourse(id, emailAddress, password) {
+    const response = await this.api('/courses/'+id, 'PUT', null, true, {emailAddress, password});
+    if (response.status === 200) {
+      return [];
+    }
+    else if (response.status === 400) {
+      return response.json().then(data => {
+        return data.errors;
+      });
+    }
+    else {
+      throw new Error();
+    }
   }
 
 }

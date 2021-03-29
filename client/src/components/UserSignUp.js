@@ -70,7 +70,7 @@ export default class UserSignUp extends Component {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               console.log('This user has been created and is signed in!')
-              window.location.href='/';
+              this.props.history.push('/authenticated');
             });
         }
       })

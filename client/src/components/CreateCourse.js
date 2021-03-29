@@ -1,10 +1,10 @@
 import React from 'react';
 
-function CreateCourse() {
+function CreateCourse(props) {
 
   function handleCancel(event) {
     event.preventDefault();
-    window.location.href = "/"
+    props.history.push('/');
   }
 
   return (
@@ -21,17 +21,17 @@ function CreateCourse() {
         <div className="main--flex">
             <div>
               <label for="courseTitle">Course Title</label>
-              <input id="courseTitle" name="courseTitle" type="text" value="" />
+              <input id="courseTitle" name="courseTitle" type="text" />
 
               <label for="courseAuthor">Course Author</label>
-              <input id="courseAuthor" name="courseAuthor" type="text" value="" />
+              <input id="courseAuthor" name="courseAuthor" type="text" />
 
               <label for="courseDescription">Course Description</label>
               <textarea id="courseDescription" name="courseDescription"></textarea>
             </div>
             <div>
               <label for="estimatedTime">Estimated Time</label>
-              <input id="estimatedTime" name="estimatedTime" type="text" value="" />
+              <input id="estimatedTime" name="estimatedTime" type="text" />
 
               <label for="materialsNeeded">Materials Needed</label>
               <textarea id="materialsNeeded" name="materialsNeeded"></textarea>

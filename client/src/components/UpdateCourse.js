@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import axios from 'axios';
 
-function UpdateCourse() {
+function UpdateCourse(props) {
 
   const [course, setCourse] = useState([])
   const params = useParams();
@@ -13,7 +13,7 @@ function UpdateCourse() {
 
   function handleCancel(event) {
     event.preventDefault();
-    window.location.href = "/"
+    props.history.push('/');
   }
 
   useEffect(() => {
@@ -37,11 +37,6 @@ function UpdateCourse() {
   if(course.estimatedTime) {
     time = course.estimatedTime;
   }
-
-
-  console.log(course.description)
-
-  //TODO figure out how to populate textarea in the return statement
 
   return (
     <div className="wrap">

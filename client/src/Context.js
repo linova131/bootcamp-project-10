@@ -28,6 +28,10 @@ export class Provider extends Component {
     return user;
   }
 
+  signOut = async () => {
+    this.setState({authenticatedUser: null});
+  }
+
   render() {
     const {authenticatedUser} = this.state;
 
@@ -36,6 +40,7 @@ export class Provider extends Component {
       data: this.data,
       actions: {
         signIn: this.signIn,
+        signOut: this.signOut,
       }
     }
     return (
@@ -45,6 +50,8 @@ export class Provider extends Component {
     )
   }
 }
+
+export const Consumer = Context.Consumer;
 
 //Wraps a provided component in Context.Consumer component. Subscribes component to all actions/context changes
 export default function withContext(Component) {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import axios from 'axios';
 
 function CourseDetail(props) {
@@ -36,9 +36,9 @@ function CourseDetail(props) {
     <main>
       <div className="actions--bar">
         <div className="wrap">
-            <a className="button" href={`/courses/${course.id}/update`}>Update Course</a>
-            <a className="button" href="/">Delete Course</a>
-            <a className="button button-secondary" href="/">Return to List</a>
+            <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
+            <Link className="button" to="/">Delete Course</Link>
+            <Link className="button button-secondary" to="/">Return to List</Link>
         </div>
       </div>
 

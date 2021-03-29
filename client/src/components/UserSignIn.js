@@ -51,14 +51,7 @@ export default class UserSignIn extends Component {
   submit = (e) => {
     e.preventDefault();
     const { context } = this.props;
-    const { firstName, lastName, emailAddress, password } = this.state;
-
-    const user = {
-      firstName,
-      lastName,
-      emailAddress,
-      password
-    };
+    const { emailAddress, password } = this.state;
 
     context.actions.signIn(emailAddress,password)
       .then(user => {
@@ -67,8 +60,7 @@ export default class UserSignIn extends Component {
             return {errors: ['Sign in was unsuccessful']};
           })
         } else {
-          this.props.history.push('/');
-          console.log('User has been signed in');
+          this.props.history.push('/authenticated');
         }
       })
       .catch(err => {
