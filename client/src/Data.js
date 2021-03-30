@@ -11,7 +11,6 @@ export default class Data {
 
     if (body !== null) {
       options.body = JSON.stringify(body);
-      console.log(body);
     }
 
     //Check if auth is required

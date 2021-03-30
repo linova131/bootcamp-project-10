@@ -3,42 +3,68 @@ import {useParams, Link} from 'react-router-dom';
 import axios from 'axios';
 
 function CourseDetail(props) {
+  //Set state using hooks
+  const [course, setCourse] = useState([])
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [materials, setMaterials] = useState([])
+  const [author, setAuthor] = useState('')
+  const [authorEmail, setAuthorEmail] = useState('')
+  const [time, setTime] = useState('')
+
+  //Set variables
+  const {context} = props;
+  let authUserEmail = '';
   const params = useParams();
   const id = params.id;
-  let materials = [];
-  let author = '';
-  let time = '';
 
-  const [course, setCourse] = useState([])
+  if (context.authenticatedUser) {
+    authUserEmail = context.authenticatedUser.emailAddress
+  }
+
+  //TODO reformat materials into list format
+
   useEffect(() => {
     axios(`http://localhost:5000/api/courses/${id}`)
-    .then(response => setCourse(response.data))
+    // .then(response => setCourse(response.data))
+    .then((response) => {
+      setCourse(response.data)
+      setTitle(response.data.title)
+      setAuthor(`${response.data.courseOwner.firstName} ${response.data.courseOwner.lastName}`)
+      setAuthorEmail(response.data.courseOwner.emailAddress)
+      setDescription(response.data.description)
+      setTime(response.data.estimatedTime)
+      setMaterials(response.data.materialsNeeded)
+    })
+    // .then(console.log(course.courseOwner.emailAddress))
     .catch(error => console.log('Something went wrong with the courses fetch'))
   }, [id]);
-
-  if(course.courseOwner) {
-    author = course.courseOwner.firstName + ' ' + course.courseOwner.lastName;
-  }
  
-  if(course.materialsNeeded) {
-    materials = course.materialsNeeded.split('*');
-    materials.shift();
-    materials = materials.map(material =>
-      <li>{material}</li>
-      );
-  }
+  // if(course.materialsNeeded) {
+  //   materials = course.materialsNeeded.split('*');
+  //   materials.shift();
+  //   materials = materials.map(material =>
+  //     <li>{material}</li>
+  //     );
+  // }
 
-  if(course.estimatedTime) {
-    time = course.estimatedTime;
-  }
+
 
   return (
     <main>
       <div className="actions--bar">
         <div className="wrap">
-            <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-            <Link className="button" to="/">Delete Course</Link>
-            <Link className="button button-secondary" to="/">Return to List</Link>
+            {authUserEmail === authorEmail ?
+            <React.Fragment>
+              <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
+              <Link className="button" to="/">Delete Course</Link>
+              <Link className="button button-secondary" to="/">Return to List</Link>
+            </React.Fragment>
+            :
+            <React.Fragment>
+              <Link className="button button-secondary" to="/">Return to List</Link>
+            </React.Fragment>
+            }
         </div>
       </div>
 
@@ -48,9 +74,9 @@ function CourseDetail(props) {
           <div className="main--flex">
             <div>
               <h3 className="course--detail--title">Course</h3>
-              <h4 className="course--name">{course.title}</h4>
+              <h4 className="course--name">{title}</h4>
               <p>By {author}</p>
-              <p>{course.description}</p>
+              <p>{description}</p>
             </div>
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>

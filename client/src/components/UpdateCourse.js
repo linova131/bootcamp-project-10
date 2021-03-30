@@ -23,11 +23,13 @@ function UpdateCourse(props) {
   const materialsInput = useRef(null);
 
   function handleChange() {
+    const {context} = props;
     setTitle(titleInput.current.value);
     setAuthor(authorInput.current.value);
     setDescription(descriptionInput.current.value);
     setTime(timeInput.current.value);
     setMaterials(materialsInput.current.value);
+    console.log(context.authenticatedUser)
   }
 
   function handleSubmit(e) {
@@ -42,9 +44,17 @@ function UpdateCourse(props) {
       estimatedTime: time,
       materialsNeeded: materials
     };
-    console.log(course);
-    //TODO add then/catch to setErrors so the validation errors appear onscreen
-    context.data.updateCourse(id, course, context.authenticatedUser.emailAddress, context.authenticatedUser.password);
+
+    context.data.updateCourse(id, course, context.authenticatedUser.emailAddress, context.authenticatedUser.password)
+      .then((err) => {
+        if (err.length) {
+          setErrors(err)
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        props.history.push('/error');
+      })
   }
 
   function handleCancel(event) {
