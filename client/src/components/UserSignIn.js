@@ -3,8 +3,6 @@ import Errors from './Errors';
 
 export default class UserSignIn extends Component {
   state = {
-    firstName: '',
-    lastName: '',
     emailAddress: '',
     password: '',
     errors: [],
@@ -23,10 +21,6 @@ export default class UserSignIn extends Component {
       <Errors errors={errors}/>
       {/* TODO Not sure if there need to be validation errors heree */}
       <form onSubmit={this.submit}>
-        <label for="firstName">First Name</label>
-        <input id="firstName" name="firstName" type="text" onChange={this.change} />
-        <label for="lastName">Last Name</label>
-        <input id="lastName" name="lastName" type="text" onChange={this.change} />
         <label for="emailAddress">Email Address</label>
         <input id="emailAddress" name="emailAddress" type="email" onChange={this.change} />
         <label for="password">Password</label>

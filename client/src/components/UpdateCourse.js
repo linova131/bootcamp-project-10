@@ -35,8 +35,6 @@ function UpdateCourse(props) {
   function handleSubmit(e) {
     e.preventDefault();
     const {context} = props;
-    const splitName = author.split(" ");
-    console.log(splitName[0])
     const course = {
       id,
       title,

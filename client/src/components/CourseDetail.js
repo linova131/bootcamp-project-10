@@ -22,6 +22,19 @@ function CourseDetail(props) {
     authUserEmail = context.authenticatedUser.emailAddress
   }
 
+  //Helper Functions
+  function handleDelete(e) {
+    e.preventDefault();
+    const {context} = props;
+    context.data.deleteCourse(id, context.authenticatedUser.emailAddress, context.authenticatedUser.password)
+      .then(() => props.history.push('/'))
+      .catch(err => {
+        console.log(err);
+        props.history.push('/error');
+      })
+  }
+
+
   //TODO reformat materials into list format
 
   useEffect(() => {
@@ -34,16 +47,27 @@ function CourseDetail(props) {
       setAuthorEmail(response.data.courseOwner.emailAddress)
       setDescription(response.data.description)
       setTime(response.data.estimatedTime)
-      setMaterials(response.data.materialsNeeded)
+      setMaterials((response.data.materialsNeeded))
     })
-    // .then(console.log(course.courseOwner.emailAddress))
     .catch(error => console.log('Something went wrong with the courses fetch'))
   }, [id]);
  
-  // if(course.materialsNeeded) {
-  //   materials = course.materialsNeeded.split('*');
-  //   materials.shift();
-  //   materials = materials.map(material =>
+
+  //helper function
+  // function materialsFormat(materialsList) {
+  //   let modifyMaterials = materialsList.split('*');
+  //   modifyMaterials.shift();
+  //   modifyMaterials = modifyMaterials.map(material =>
+  //     <li>{material}</li>
+  //     );
+  //   setMaterials(modifyMaterials);
+  // }
+
+
+  // if(materials) {
+  //   let modifyMaterials = materials.split('*');
+  //   modifyMaterials.shift();
+  //   modifyMaterials = modifyMaterials.map(material =>
   //     <li>{material}</li>
   //     );
   // }
@@ -57,7 +81,7 @@ function CourseDetail(props) {
             {authUserEmail === authorEmail ?
             <React.Fragment>
               <Link className="button" to={`/courses/${course.id}/update`}>Update Course</Link>
-              <Link className="button" to="/">Delete Course</Link>
+              <button className="button" onClick={handleDelete}>Delete Course</button>
               <Link className="button button-secondary" to="/">Return to List</Link>
             </React.Fragment>
             :

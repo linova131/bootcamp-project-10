@@ -24,6 +24,7 @@ import withContext from './Context';
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
+const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const CourseDetailWithContext = withContext(CourseDetail);
 const HeaderWithContext = withContext(Header);
@@ -39,7 +40,7 @@ function App() {
         
         <Switch>
           <Route exact path="/" render={() => <Courses />} />
-          <PrivateRoute path="/courses/create" component={CreateCourse} />
+          <PrivateRoute path="/courses/create" component={CreateCourseWithContext} />
           <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
           <Route exact path="/courses/:id" component={CourseDetailWithContext} />
           <Route path="/signin" component={UserSignInWithContext} />
