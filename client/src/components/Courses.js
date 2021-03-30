@@ -1,10 +1,17 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 
 function Courses(props) {
+  const [courses, setCourses] = useState([]);
+
+  useEffect(() => {
+    axios('http://localhost:5000/api/courses')
+      .then(response => setCourses(response.data))
+      .catch(error => console.log('Something went wrong with the courses fetch'))
+  }, [])
 
   let titles = [];
-  const courses = props.courses;
   
   titles = courses.map(course => 
       <Link className="course--module course--link" to={`/courses/${course.id}`}>

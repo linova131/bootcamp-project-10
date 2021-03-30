@@ -31,13 +31,6 @@ const AuthWithContext = withContext(Authenticated);
 
 
 function App() {
-  const [courses, setCourses] = useState([]);
-
-  useEffect(() => {
-    axios('http://localhost:5000/api/courses')
-      .then(response => setCourses(response.data))
-      .catch(error => console.log('Something went wrong with the courses fetch'))
-  }, [])
 
   return (
     <div className="App">
@@ -45,9 +38,9 @@ function App() {
         <HeaderWithContext />
         
         <Switch>
-          <Route exact path="/" render={() => <Courses courses={courses} />} />
-          <Route path="/courses/create" component={CreateCourse} />
-          <Route exact path="/courses/:id/update" component={UpdateCourseWithContext} />
+          <Route exact path="/" render={() => <Courses />} />
+          <PrivateRoute path="/courses/create" component={CreateCourse} />
+          <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
           <Route exact path="/courses/:id" component={CourseDetail} />
           <Route path="/signin" component={UserSignInWithContext} />
           <Route path="/signup" component={UserSignUpWithContext} />

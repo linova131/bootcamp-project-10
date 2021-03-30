@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useParams} from 'react-router-dom';
+import Errors from './Errors';
 import axios from 'axios';
 
 function UpdateCourse(props) {
@@ -10,6 +11,7 @@ function UpdateCourse(props) {
   const [description, setDescription] = useState('')
   const [time, setTime] = useState('')
   const [materials, setMaterials] = useState('')
+  const [errors, setErrors] = useState([]);
 
   //Setting variables and refs
   const params = useParams();
@@ -31,16 +33,17 @@ function UpdateCourse(props) {
   function handleSubmit(e) {
     e.preventDefault();
     const {context} = props;
-    console.log(context.authenticatedUser);
+    const splitName = author.split(" ");
+    console.log(splitName[0])
     const course = {
       id,
       title,
-      author,
       description,
-      time,
-      materials
+      estimatedTime: time,
+      materialsNeeded: materials
     };
-    //TODO context
+    console.log(course);
+    //TODO add then/catch to setErrors so the validation errors appear onscreen
     context.data.updateCourse(id, course, context.authenticatedUser.emailAddress, context.authenticatedUser.password);
   }
 
@@ -65,6 +68,7 @@ function UpdateCourse(props) {
   return (
     <div className="wrap">
       <h2>Update Course</h2>
+      <Errors errors={errors} />
       <form onSubmit={handleSubmit}>
         <div className="main--flex">
             <div>

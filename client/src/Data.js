@@ -11,6 +11,7 @@ export default class Data {
 
     if (body !== null) {
       options.body = JSON.stringify(body);
+      console.log(body);
     }
 
     //Check if auth is required
@@ -56,6 +57,7 @@ export default class Data {
 
   async updateCourse(id, course, emailAddress, password) {
     const response = await this.api('/courses/'+id, 'PUT', course, true, {emailAddress, password});
+    console.log(response.status)
     if (response.status === 204) {
       console.log('Course updated')
     }
