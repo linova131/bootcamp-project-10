@@ -10,7 +10,7 @@ export default class UserSignUp extends Component {
     errors: [],
   }
 
-  //TODO figure out how to only sometimes show the Errors
+  //TODO require password? confirm passwords match
 
   render() {
     const {
@@ -21,7 +21,6 @@ export default class UserSignUp extends Component {
        <div className="form--centered">
       <h2>Sign Up</h2>
       <Errors errors={errors}/>
-      {/* TODO Not sure if there need to be validation errors heree */}
       <form onSubmit={this.submit}>
         <label for="firstName">First Name</label>
         <input id="firstName" name="firstName" type="text" onChange={this.change} />
@@ -70,7 +69,7 @@ export default class UserSignUp extends Component {
           context.actions.signIn(emailAddress, password)
             .then(() => {
               console.log('This user has been created and is signed in!')
-              this.props.history.push('/authenticated');
+              this.props.history.push('/');
             });
         }
       })

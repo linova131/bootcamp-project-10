@@ -37,8 +37,9 @@ function CreateCourse(props) {
       .then((err) => {
         if (err.length) {
           setErrors(err)
+        } else {
+          props.history.push('/');
         }
-        props.history.push('/');
       })
       .catch(err => {
         console.log(err);

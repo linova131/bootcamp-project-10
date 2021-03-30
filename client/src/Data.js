@@ -50,10 +50,6 @@ export default class Data {
     }
   }
 
-  testFunction() {
-    console.log('test fired')
-  }
-
   async createCourse(course, emailAddress, password) {
     const response = await this.api('/courses', 'POST', course, true, {emailAddress, password})
     if (response.status === 201) {

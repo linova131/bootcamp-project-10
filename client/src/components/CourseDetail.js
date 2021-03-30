@@ -34,7 +34,6 @@ function CourseDetail(props) {
       })
   }
 
-
   //TODO reformat materials into list format
 
   useEffect(() => {

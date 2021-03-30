@@ -29,10 +29,6 @@ export class Provider extends Component {
     return user;
   }
 
-  testFunction = () => {
-    console.log('test fired')
-  }
-
   signOut = async () => {
     this.setState({authenticatedUser: null});
   }

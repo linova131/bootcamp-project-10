@@ -17,7 +17,6 @@ import UpdateCourse from './components/UpdateCourse';
 import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
 import UserSignOut from './components/UserSignOut';
-import Authenticated from './components/Authenticated';
 import withContext from './Context';
 
 //Contextualized components
@@ -28,8 +27,6 @@ const CreateCourseWithContext = withContext(CreateCourse);
 const UpdateCourseWithContext = withContext(UpdateCourse);
 const CourseDetailWithContext = withContext(CourseDetail);
 const HeaderWithContext = withContext(Header);
-const AuthWithContext = withContext(Authenticated);
-
 
 function App() {
 
@@ -46,7 +43,6 @@ function App() {
           <Route path="/signin" component={UserSignInWithContext} />
           <Route path="/signup" component={UserSignUpWithContext} />
           <Route path="/signout" component={UserSignOutWithContext} />
-          <PrivateRoute path="/authenticated" component={AuthWithContext} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

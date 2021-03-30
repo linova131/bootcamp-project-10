@@ -7,7 +7,6 @@ function UpdateCourse(props) {
 
   //Set state using hooks
   const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
   const [description, setDescription] = useState('')
   const [time, setTime] = useState('')
   const [materials, setMaterials] = useState('')
@@ -17,19 +16,15 @@ function UpdateCourse(props) {
   const params = useParams();
   const id = params.id;
   const titleInput = useRef(null);
-  const authorInput = useRef(null);
   const descriptionInput = useRef(null);
   const timeInput = useRef(null);
   const materialsInput = useRef(null);
 
   function handleChange() {
-    const {context} = props;
     setTitle(titleInput.current.value);
-    setAuthor(authorInput.current.value);
     setDescription(descriptionInput.current.value);
     setTime(timeInput.current.value);
     setMaterials(materialsInput.current.value);
-    console.log(context.authenticatedUser)
   }
 
   function handleSubmit(e) {
@@ -45,10 +40,11 @@ function UpdateCourse(props) {
 
     context.data.updateCourse(id, course, context.authenticatedUser.emailAddress, context.authenticatedUser.password)
       .then((err) => {
-        if (err.length) {
+        if (err) {
           setErrors(err)
         }
       })
+      .then(() => props.history.push(`/courses/${id}`))
       .catch(err => {
         console.log(err);
         props.history.push('/error');
@@ -65,7 +61,6 @@ function UpdateCourse(props) {
     .then((response) => {
       // setCourse(response.data)
       setTitle(response.data.title)
-      setAuthor(`${response.data.courseOwner.firstName} ${response.data.courseOwner.lastName}`)
       setDescription(response.data.description)
       setTime(response.data.estimatedTime)
       setMaterials(response.data.materialsNeeded)
@@ -82,9 +77,6 @@ function UpdateCourse(props) {
             <div>
               <label for="courseTitle">Course Title</label>
               <input id="courseTitle" name="courseTitle" type="text" ref={titleInput} onChange={handleChange} value={title} />
-
-              <label for="courseAuthor">Course Author</label>
-              <input id="courseAuthor" name="courseAuthor" type="text" ref={authorInput} onChange={handleChange} value={author} />
 
               <label for="courseDescription">Course Description</label>
               <textarea id="courseDescription" name="courseDescription" ref={descriptionInput} onChange={handleChange} value={description}></textarea>
