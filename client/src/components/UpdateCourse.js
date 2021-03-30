@@ -31,7 +31,7 @@ function UpdateCourse(props) {
   function handleSubmit(e) {
     e.preventDefault();
     const {context} = props;
-
+    console.log(context.authenticatedUser);
     const course = {
       id,
       title,
@@ -40,11 +40,8 @@ function UpdateCourse(props) {
       time,
       materials
     };
-
-    console.log(course);
-    console.log('check')
     //TODO context
-    context.actions.setFunction();
+    context.data.updateCourse(id, course, context.authenticatedUser.emailAddress, context.authenticatedUser.password);
   }
 
   function handleCancel(event) {
