@@ -17,6 +17,7 @@ function CourseDetail(props) {
   let authUserEmail = '';
   const params = useParams();
   const id = params.id;
+  let materialsModify;
 
   if (context.authenticatedUser) {
     authUserEmail = context.authenticatedUser.emailAddress
@@ -50,28 +51,15 @@ function CourseDetail(props) {
     })
     .catch(error => console.log('Something went wrong with the courses fetch'))
   }, [id]);
- 
 
-  //helper function
-  // function materialsFormat(materialsList) {
-  //   let modifyMaterials = materialsList.split('*');
-  //   modifyMaterials.shift();
-  //   modifyMaterials = modifyMaterials.map(material =>
-  //     <li>{material}</li>
-  //     );
-  //   setMaterials(modifyMaterials);
-  // }
-
-
-  // if(materials) {
-  //   let modifyMaterials = materials.split('*');
-  //   modifyMaterials.shift();
-  //   modifyMaterials = modifyMaterials.map(material =>
-  //     <li>{material}</li>
-  //     );
-  // }
-
-
+  if(materials.length > 0) {
+    materialsModify = materials;
+    materialsModify = materialsModify.split('*')
+    materialsModify.shift();
+    materialsModify = materialsModify.map(material =>
+      <li>{material}</li>
+      );
+  }
 
   return (
     <main>
@@ -106,7 +94,7 @@ function CourseDetail(props) {
               <p>{time}</p>
               <h3 className="course--detail--title">Materials Needed</h3>
               <ul className="course--detail--list">
-                {materials}
+                {materialsModify}
               </ul>
             </div>
           </div>
