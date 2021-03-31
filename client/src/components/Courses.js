@@ -8,8 +8,13 @@ function Courses(props) {
   useEffect(() => {
     axios('http://localhost:5000/api/courses')
       .then(response => setCourses(response.data))
-      .catch(error => console.log('Something went wrong with the courses fetch'))
-  }, [])
+      .catch((error) => {
+        console.log('Something went wrong with the courses fetch')
+        if(error.response.status === 500) {
+          props.push.history('/error');
+        }
+      })
+  }, [props])
 
   let titles = [];
   

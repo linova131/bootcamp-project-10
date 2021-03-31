@@ -54,11 +54,14 @@ export default class UserSignIn extends Component {
             return {errors: ['Sign in was unsuccessful']};
           })
         } else {
-          this.props.history.push('/');
+          this.props.history.push(this.props.location.state.from);
         }
       })
       .catch(err => {
         console.log(err);
+        if(err.response.status === 500) {
+          this.props.history.push('/error');
+        }
       })
   }
 

@@ -10,8 +10,6 @@ export default class UserSignUp extends Component {
     errors: [],
   }
 
-  //TODO require password? confirm passwords match
-
   render() {
     const {
       errors,
@@ -60,7 +58,6 @@ export default class UserSignUp extends Component {
       emailAddress,
       password
     };
-    console.log(user);
     context.data.createUser(user)
       .then(errors => {
         if (errors.length) {

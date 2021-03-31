@@ -11,6 +11,7 @@ function UpdateCourse(props) {
   const [time, setTime] = useState('')
   const [materials, setMaterials] = useState('')
   const [errors, setErrors] = useState([]);
+  const [userId, setUserId] = useState(0)
 
   //Setting variables and refs
   const params = useParams();
@@ -59,14 +60,27 @@ function UpdateCourse(props) {
   useEffect(() => {
     axios(`http://localhost:5000/api/courses/${id}`)
     .then((response) => {
-      // setCourse(response.data)
       setTitle(response.data.title)
       setDescription(response.data.description)
       setTime(response.data.estimatedTime)
       setMaterials(response.data.materialsNeeded)
+      setUserId(response.data.userId)
     })
-    .catch(error => console.log('Something went wrong with the courses fetch'))
-  }, [id]);
+    .catch((error) => {
+      if(error.response.status === 404) {
+        props.history.push('/notfound');
+      } else if(error.response.status === 500) {
+        props.history.push('/error');
+      }
+      console.log('Something went wrong with the courses fetch')})
+  }, [id, props.history]);
+
+  useEffect(() => {
+    const {context} = props;
+    if (userId && userId !== context.authenticatedUser.id) {
+      props.history.push('/forbidden');
+    }
+  }, [userId, props])
 
   return (
     <div className="wrap">

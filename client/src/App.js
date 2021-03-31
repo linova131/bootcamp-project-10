@@ -10,6 +10,8 @@ import {
 import Header from './components/Header';
 import PrivateRoute from './PrivateRoute';
 import NotFound from './components/NotFound';
+import Forbidden from './components/Forbidden';
+import UnhandledError from './components/UnhandledError';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
@@ -43,6 +45,8 @@ function App() {
           <Route path="/signin" component={UserSignInWithContext} />
           <Route path="/signup" component={UserSignUpWithContext} />
           <Route path="/signout" component={UserSignOutWithContext} />
+          <Route path="/forbidden" component={Forbidden} />
+          <Route path="/error" component={UnhandledError} />
           <Route component={NotFound} />
         </Switch>
       </BrowserRouter>

@@ -49,8 +49,15 @@ function CourseDetail(props) {
       setTime(response.data.estimatedTime)
       setMaterials((response.data.materialsNeeded))
     })
-    .catch(error => console.log('Something went wrong with the courses fetch'))
-  }, [id]);
+    .catch((error) => {
+      console.log('Something went wrong with the courses fetch')
+      if(error.response.status === 404) {
+        props.history.push('/notfound');
+      } else if(error.response.status === 500) {
+        props.history.push('/error');
+      }
+    })
+  }, [id, props.history]);
 
   if(materials.length > 0) {
     materialsModify = materials;
