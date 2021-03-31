@@ -44,10 +44,10 @@ module.exports = (sequelize) => {
     password: {
       type: Sequelize.STRING,
       allowNull: false,
-      set(val) {
-          const hashedPassword = bcryptjs.hashSync(val, 10);
-          this.setDataValue('password', hashedPassword);
-      },
+      // set(val) {
+      //     const hashedPassword = bcryptjs.hashSync(val, 10);
+      //     this.setDataValue('password', hashedPassword);
+      // },
       validate: {
         notNull: {
           msg: 'Please provide a valid password.',

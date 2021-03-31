@@ -9,6 +9,7 @@ const sequelize = new Sequelize({
   storage: 'fsjstd-restapi.db',
   dialect: 'sqlite',
 });
+const bcryptjs = require('bcryptjs');
 const { Course, User } = require('./models');
 const {authenticateUser} = require('./middleware/auth-user');
 
@@ -61,7 +62,12 @@ app.get('/api/users', authenticateUser, asyncHandler(async(req, res)=>{
 // POST /api/users, create a new user, set the Location header to "/" and return a 201 status code and no content
 app.post('/api/users', asyncHandler(async(req, res)=> {
   try {
+    if(req.body.password) {
+      const hashedPassword = bcryptjs.hashSync(req.body.password,10);
+      req.body.password = hashedPassword;
+    }
     await User.create(req.body);
+    console.log(req.body)
     res.status(201).location('/').json();
   } catch (error) {
     console.log('ERROR: ', error.name);
