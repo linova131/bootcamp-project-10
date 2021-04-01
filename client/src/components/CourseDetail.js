@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import axios from 'axios';
 
+//Renders the CourseDetail page
 function CourseDetail(props) {
   //Set state using hooks
   const [course, setCourse] = useState([])
@@ -18,12 +19,14 @@ function CourseDetail(props) {
   const params = useParams();
   const id = params.id;
   let materialsModify;
-
   if (context.authenticatedUser) {
     authUserEmail = context.authenticatedUser.emailAddress
   }
 
   //Helper Functions
+
+  //handleDelete accesses the helper functions in Data.js to make a call to the
+  //API to delete a course. The user is then redirected to the home page
   function handleDelete(e) {
     e.preventDefault();
     const {context} = props;
@@ -35,11 +38,11 @@ function CourseDetail(props) {
       })
   }
 
-  //TODO reformat materials into list format
-
+  //useEffect will run when the component is rendered. There is an axios call to
+  //the API, and then the response data is added to the component state using
+  //useState hooks
   useEffect(() => {
     axios(`http://localhost:5000/api/courses/${id}`)
-    // .then(response => setCourse(response.data))
     .then((response) => {
       setCourse(response.data)
       setTitle(response.data.title)
@@ -59,6 +62,9 @@ function CourseDetail(props) {
     })
   }, [id, props.history]);
 
+  //This logic allows for the materials to be modified from a string
+  //to a collection of li items. Possibly would work better in the
+  //useEffect, however, I couldn't get that to work for some reason
   if (materials) {
     if(materials.length > 0) {
       materialsModify = materials;

@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import Errors from './Errors';
 
+//Renders the Create Course page
 function CreateCourse(props) {
   
   //Set state using hooks
