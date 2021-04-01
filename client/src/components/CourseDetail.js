@@ -59,13 +59,15 @@ function CourseDetail(props) {
     })
   }, [id, props.history]);
 
-  if(materials.length > 0) {
-    materialsModify = materials;
-    materialsModify = materialsModify.split('*')
-    materialsModify.shift();
-    materialsModify = materialsModify.map(material =>
-      <li>{material}</li>
-      );
+  if (materials) {
+    if(materials.length > 0) {
+      materialsModify = materials;
+      materialsModify = materialsModify.split('*')
+      materialsModify.shift();
+      materialsModify = materialsModify.map(material =>
+        <li>{material}</li>
+        );
+    }
   }
 
   return (

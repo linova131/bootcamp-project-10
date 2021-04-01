@@ -43,9 +43,10 @@ function UpdateCourse(props) {
       .then((err) => {
         if (err) {
           setErrors(err)
+        } else {
+          props.history.push(`/courses/${id}`)
         }
       })
-      .then(() => props.history.push(`/courses/${id}`))
       .catch(err => {
         console.log(err);
         props.history.push('/error');
@@ -54,7 +55,7 @@ function UpdateCourse(props) {
 
   function handleCancel(event) {
     event.preventDefault();
-    props.history.push('/');
+    props.history.push('/courses/' + id);
   }
 
   useEffect(() => {

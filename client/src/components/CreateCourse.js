@@ -75,7 +75,7 @@ function CreateCourse(props) {
               <textarea id="materialsNeeded" name="materialsNeeded" ref={materialsInput} onChange={handleChange}></textarea>
             </div>
           </div>
-          <button class="button" type="submit">Update Course</button><button class="button button-secondary" onClick={handleCancel}>Cancel</button>
+          <button class="button" type="submit">Create Course</button><button class="button button-secondary" onClick={handleCancel}>Cancel</button>
       </form>    
     </div>    
   )
