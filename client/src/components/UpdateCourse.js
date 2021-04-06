@@ -63,8 +63,16 @@ function UpdateCourse(props) {
     .then((response) => {
       setTitle(response.data.title)
       setDescription(response.data.description)
-      setTime(response.data.estimatedTime)
-      setMaterials(response.data.materialsNeeded)
+      if(response.data.estimatedTime) {
+        setTime(response.data.estimatedTime)
+      } else {
+        setTime('')
+      }
+      if(response.data.materialsNeeded) {
+        setMaterials(response.data.materialsNeeded)
+      } else {
+        setMaterials('')
+      }
       setUserId(response.data.userId)
     })
     .catch((error) => {
