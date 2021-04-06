@@ -9,7 +9,7 @@ function CourseDetail(props) {
   const [course, setCourse] = useState([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [materials, setMaterials] = useState([])
+  const [materials, setMaterials] = useState('')
   const [author, setAuthor] = useState('')
   const [authorEmail, setAuthorEmail] = useState('')
   const [time, setTime] = useState('')

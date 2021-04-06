@@ -3,7 +3,7 @@ import React from 'react';
 function Errors(props) {
   let errors = props.errors
   errors = errors.map(error => {
-    return <li>{error}</li>
+    return <li key={errors.indexOf(error)}>{error}</li>
   })
 
   if (errors.length) {

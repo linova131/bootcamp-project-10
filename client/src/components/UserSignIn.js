@@ -22,11 +22,11 @@ export default class UserSignIn extends Component {
       <Errors errors={errors}/>
       {/* TODO Not sure if there need to be validation errors heree */}
       <form onSubmit={this.submit}>
-        <label for="emailAddress">Email Address</label>
+        <label htmlFor="emailAddress">Email Address</label>
         <input id="emailAddress" name="emailAddress" type="email" onChange={this.change} />
-        <label for="password">Password</label>
+        <label htmlFor="password">Password</label>
         <input id="password" name="password" type="password" onChange={this.change}/>
-        <button class="button" type="submit">Sign In</button><button class="button button-secondary" onClick={this.cancel}>Cancel</button>
+        <button className="button" type="submit">Sign In</button><button className="button button-secondary" onClick={this.cancel}>Cancel</button>
       </form>
       <p>Don't have a user account? Click here to <Link to="/signin">sign up</Link></p>
     </div>

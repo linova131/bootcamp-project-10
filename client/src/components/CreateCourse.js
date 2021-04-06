@@ -63,20 +63,20 @@ function CreateCourse(props) {
       <form onSubmit={handleSubmit}>
         <div className="main--flex">
             <div>
-              <label for="courseTitle">Course Title</label>
+              <label htmlFor="courseTitle">Course Title</label>
               <input id="courseTitle" name="courseTitle" ref={titleInput} onChange={handleChange} type="text" />
-              <label for="courseDescription">Course Description</label>
+              <label htmlFor="courseDescription">Course Description</label>
               <textarea id="courseDescription" name="courseDescription" ref={descriptionInput} onChange={handleChange}></textarea>
             </div>
             <div>
-              <label for="estimatedTime">Estimated Time</label>
+              <label htmlFor="estimatedTime">Estimated Time</label>
               <input id="estimatedTime" name="estimatedTime" ref={timeInput} onChange={handleChange} type="text" />
 
-              <label for="materialsNeeded">Materials Needed</label>
+              <label htmlFor="materialsNeeded">Materials Needed</label>
               <textarea id="materialsNeeded" name="materialsNeeded" ref={materialsInput} onChange={handleChange}></textarea>
             </div>
           </div>
-          <button class="button" type="submit">Create Course</button><button class="button button-secondary" onClick={handleCancel}>Cancel</button>
+          <button className="button" type="submit">Create Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
       </form>    
     </div>    
   )

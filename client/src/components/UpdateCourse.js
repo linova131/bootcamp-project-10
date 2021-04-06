@@ -16,10 +16,10 @@ function UpdateCourse(props) {
   //Setting variables and refs
   const params = useParams();
   const id = params.id;
-  const titleInput = useRef(null);
-  const descriptionInput = useRef(null);
-  const timeInput = useRef(null);
-  const materialsInput = useRef(null);
+  const titleInput = useRef('');
+  const descriptionInput = useRef('');
+  const timeInput = useRef('');
+  const materialsInput = useRef('');
 
   function handleChange() {
     setTitle(titleInput.current.value);
@@ -90,21 +90,21 @@ function UpdateCourse(props) {
       <form onSubmit={handleSubmit}>
         <div className="main--flex">
             <div>
-              <label for="courseTitle">Course Title</label>
+              <label htmlFor="courseTitle">Course Title</label>
               <input id="courseTitle" name="courseTitle" type="text" ref={titleInput} onChange={handleChange} value={title} />
 
-              <label for="courseDescription">Course Description</label>
+              <label htmlFor="courseDescription">Course Description</label>
               <textarea id="courseDescription" name="courseDescription" ref={descriptionInput} onChange={handleChange} value={description}></textarea>
             </div>
             <div>
-              <label for="estimatedTime">Estimated Time</label>
+              <label htmlFor="estimatedTime">Estimated Time</label>
               <input id="estimatedTime" name="estimatedTime" type="text" ref={timeInput} onChange={handleChange} value={time} />
 
-              <label for="materialsNeeded">Materials Needed</label>
+              <label htmlFor="materialsNeeded">Materials Needed</label>
               <textarea id="materialsNeeded" name="materialsNeeded" ref={materialsInput} onChange={handleChange} value={materials}></textarea>
             </div>
           </div>
-          <button class="button" type="submit">Update Course</button><button class="button button-secondary" onClick={handleCancel}>Cancel</button>
+          <button className="button" type="submit">Update Course</button><button className="button button-secondary" onClick={handleCancel}>Cancel</button>
       </form>    
     </div>    
   )
