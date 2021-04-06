@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 import axios from 'axios';
 
 //Renders the CourseDetail page
@@ -18,7 +19,6 @@ function CourseDetail(props) {
   let authUserEmail = '';
   const params = useParams();
   const id = params.id;
-  let materialsModify;
   if (context.authenticatedUser) {
     authUserEmail = context.authenticatedUser.emailAddress
   }
@@ -62,20 +62,6 @@ function CourseDetail(props) {
     })
   }, [id, props.history]);
 
-  //This logic allows for the materials to be modified from a string
-  //to a collection of li items. Possibly would work better in the
-  //useEffect, however, I couldn't get that to work for some reason
-  if (materials) {
-    if(materials.length > 0) {
-      materialsModify = materials;
-      materialsModify = materialsModify.split('*')
-      materialsModify.shift();
-      materialsModify = materialsModify.map(material =>
-        <li>{material}</li>
-        );
-    }
-  }
-
   return (
     <main>
       <div className="actions--bar">
@@ -102,14 +88,14 @@ function CourseDetail(props) {
               <h3 className="course--detail--title">Course</h3>
               <h4 className="course--name">{title}</h4>
               <p>By {author}</p>
-              <p>{description}</p>
+              <ReactMarkdown children={description} />
             </div>
             <div>
               <h3 className="course--detail--title">Estimated Time</h3>
               <p>{time}</p>
               <h3 className="course--detail--title">Materials Needed</h3>
               <ul className="course--detail--list">
-                {materialsModify}
+                <ReactMarkdown children={materials} />
               </ul>
             </div>
           </div>
