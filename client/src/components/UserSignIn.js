@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import Errors from './Errors';
 
 export default class UserSignIn extends Component {
@@ -27,6 +28,7 @@ export default class UserSignIn extends Component {
         <input id="password" name="password" type="password" onChange={this.change}/>
         <button class="button" type="submit">Sign In</button><button class="button button-secondary" onClick={this.cancel}>Cancel</button>
       </form>
+      <p>Don't have a user account? Click here to <Link to="/signin">sign up</Link></p>
     </div>
     );
   }

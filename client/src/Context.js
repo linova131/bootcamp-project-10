@@ -43,6 +43,7 @@ export class Provider extends Component {
   //signOUt handles the signOut by resetting the state of authUser to null
   signOut = async () => {
     this.setState({authenticatedUser: null});
+    Cookies.remove('authenticatedUser');
   }
 
   render() {
