@@ -28,7 +28,7 @@ export default class UserSignIn extends Component {
         <input id="password" name="password" type="password" onChange={this.change}/>
         <button className="button" type="submit">Sign In</button><button className="button button-secondary" onClick={this.cancel}>Cancel</button>
       </form>
-      <p>Don't have a user account? Click here to <Link to="/signin">sign up</Link></p>
+      <p>Don't have a user account? Click here to <Link to="/signup">sign up</Link></p>
     </div>
     );
   }
