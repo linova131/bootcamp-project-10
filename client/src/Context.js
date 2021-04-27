@@ -48,7 +48,8 @@ export class Provider extends Component {
 
   render() {
     const {authenticatedUser} = this.state;
-
+    
+    //These are the variables and methods that will be available to subscribed components
     const value = {
       authenticatedUser,
       data: this.data,

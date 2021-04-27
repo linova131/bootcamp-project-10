@@ -9,8 +9,6 @@ export default class UserSignIn extends Component {
     errors: [],
   }
 
-  //TODO figure out how to only sometimes show the Errors
-
   render() {
     const {
       errors,
@@ -20,7 +18,6 @@ export default class UserSignIn extends Component {
        <div className="form--centered">
       <h2>Sign In</h2>
       <Errors errors={errors}/>
-      {/* TODO Not sure if there need to be validation errors heree */}
       <form onSubmit={this.submit}>
         <label htmlFor="emailAddress">Email Address</label>
         <input id="emailAddress" name="emailAddress" type="email" onChange={this.change} />
@@ -48,6 +45,7 @@ export default class UserSignIn extends Component {
     e.preventDefault();
     const { context } = this.props;
     const { emailAddress, password } = this.state;
+    console.log(password)
 
     context.actions.signIn(emailAddress,password)
       .then(user => {

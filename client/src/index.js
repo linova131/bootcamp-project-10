@@ -6,6 +6,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from './Context';
 
+
+//App component is wrapped in the Provider component created by context.js to allow access
+//to context throughout the app
 ReactDOM.render(
   <React.StrictMode>
     <Provider>

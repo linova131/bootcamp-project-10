@@ -1,4 +1,9 @@
+//Separating out these helper functions is at the suggestion of the Treehouse courses
+//This class exists to provide helper functions that handle the various API calls in the app
+
 export default class Data {
+
+  //This method constructs the req.body, API call path, and credentials for an API call
   api(path, method = 'GET', body = null, requiresAuth = false, credentials = null) {
     const url = 'http://localhost:5000/api' + path;
   
@@ -22,6 +27,8 @@ export default class Data {
     return fetch(url, options);
   }
 
+  //getUser sends a GET request to the /users API route. Should return a verified user from the database
+  //or notification that no such user exists
   async getUser(emailAddress, password) {
     const response = await this.api(`/users`, 'GET', null, true, {emailAddress, password});
     if (response.status === 200) {
@@ -35,6 +42,7 @@ export default class Data {
     }
   }
   
+  //createUser sends a POST request to /users API route. Should add a new user to database, if req.body is correct
   async createUser(user) {
     const response = await this.api('/users', 'POST', user);
     if (response.status === 201) {
@@ -50,6 +58,7 @@ export default class Data {
     }
   }
 
+  //createCourse sends a POST request to the /courses API route. If req.body correct, should add new course to database
   async createCourse(course, emailAddress, password) {
     const response = await this.api('/courses', 'POST', course, true, {emailAddress, password})
     if (response.status === 201) {
@@ -65,6 +74,7 @@ export default class Data {
     }
   }
 
+  //updateCourse sends a PUT request to the /courses route. 
   async updateCourse(id, course, emailAddress, password) {
     const response = await this.api('/courses/'+id, 'PUT', course, true, {emailAddress, password});
     if (response.status === 204) {
@@ -80,6 +90,7 @@ export default class Data {
     }
   }
 
+  //deleteCourse sends a DELETE request to the /courses route.
   async deleteCourse(id, emailAddress, password) {
     const response = await this.api('/courses/'+id, 'DELETE', null, true, {emailAddress, password});
     if (response.status === 204) {

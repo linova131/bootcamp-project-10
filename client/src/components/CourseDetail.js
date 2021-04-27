@@ -5,6 +5,7 @@ import axios from 'axios';
 
 //Renders the CourseDetail page
 function CourseDetail(props) {
+
   //Set state using hooks
   const [course, setCourse] = useState([])
   const [title, setTitle] = useState('')
@@ -17,8 +18,10 @@ function CourseDetail(props) {
   //Set variables
   const {context} = props;
   let authUserEmail = '';
+  //useParams allows me to access the dynamic URL params
   const params = useParams();
   const id = params.id;
+  
   if (context.authenticatedUser) {
     authUserEmail = context.authenticatedUser.emailAddress
   }

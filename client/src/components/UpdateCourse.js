@@ -21,6 +21,7 @@ function UpdateCourse(props) {
   const timeInput = useRef('');
   const materialsInput = useRef('');
 
+  //handleChange listens for changes to all the input fields and updates the state variables each time
   function handleChange() {
     setTitle(titleInput.current.value);
     setDescription(descriptionInput.current.value);
@@ -28,9 +29,12 @@ function UpdateCourse(props) {
     setMaterials(materialsInput.current.value);
   }
 
+  //handleSubmit adds functionality to submit button, triggers API call
   function handleSubmit(e) {
     e.preventDefault();
     const {context} = props;
+
+    //Generates the eventual req.body from the input elements
     const course = {
       id,
       title,
@@ -38,7 +42,8 @@ function UpdateCourse(props) {
       estimatedTime: time,
       materialsNeeded: materials
     };
-
+    
+    //API call via data.js helper functions
     context.data.updateCourse(id, course, context.authenticatedUser.emailAddress, context.authenticatedUser.password)
       .then((err) => {
         if (err) {
@@ -53,11 +58,14 @@ function UpdateCourse(props) {
       })
   }
 
+  //handleChange listens for changes to all the input fields and updates the state variables each time
   function handleCancel(event) {
     event.preventDefault();
     props.history.push('/courses/' + id);
   }
 
+  //Makes a GET call to the /courses/$id API route and fills out the fields
+  //in the updateCourse form
   useEffect(() => {
     axios(`http://localhost:5000/api/courses/${id}`)
     .then((response) => {
@@ -84,6 +92,8 @@ function UpdateCourse(props) {
       console.log('Something went wrong with the courses fetch')})
   }, [id, props.history]);
 
+  //This effect determines if the current authUser matches the course creator
+  //If they do not match, the user is redirected to the forbidden page
   useEffect(() => {
     const {context} = props;
     if (userId && userId !== context.authenticatedUser.id) {

@@ -18,14 +18,19 @@ function CreateCourse(props) {
   const materialsInput = useRef(null);
 
   //Helper Functions
+  
+  //handleCancel adds functionality to cancel button
   function handleCancel(event) {
     event.preventDefault();
     props.history.push('/');
   }
 
+  //handleSubmit adds functionality to submit button, triggers API call
   function handleSubmit(e) {
     e.preventDefault();
     const {context} = props;
+    
+    //Generates the eventual req.body from the input elements
     const course = {
       title,
       description,
@@ -34,8 +39,10 @@ function CreateCourse(props) {
       userId: context.authenticatedUser.id
     }
 
+    //API call via data.js helper functions
     context.data.createCourse(course, context.authenticatedUser.emailAddress, context.authenticatedUser.password)
       .then((err) => {
+        console.log(err)
         if (err.length) {
           setErrors(err)
         } else {
@@ -48,6 +55,7 @@ function CreateCourse(props) {
       })
   }
 
+  //handleChange listens for changes to all the input fields and updates the state variables each time
   function handleChange() {
     setTitle(titleInput.current.value);
     setDescription(descriptionInput.current.value);

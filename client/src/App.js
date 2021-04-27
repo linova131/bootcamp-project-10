@@ -21,6 +21,7 @@ import UserSignOut from './components/UserSignOut';
 import withContext from './Context';
 
 //Contextualized components
+//By using the withContext method from context.js, the helper methods from context are available in each component
 const UserSignUpWithContext = withContext(UserSignUp);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignOutWithContext = withContext(UserSignOut);
